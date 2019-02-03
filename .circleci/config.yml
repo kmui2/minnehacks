@@ -7,7 +7,7 @@ jobs:
   deploy:
     docker:
       # specify the version you desire here
-      - image: circleci/node:10.15.1
+      - image: kmui2/rise-ci
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
