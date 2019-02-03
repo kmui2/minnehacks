@@ -39,6 +39,12 @@ app.post('/sms', async (req, res) => {
 
   if (!cmd || !(cmd in routes)) {
     pass;
+  } else if(cmd=="news") {
+      let country;
+      if("FromCountry" in req) {
+        country=req.FromCountry;
+      }
+      responses = await routes['news'](args.slice(1), country);
   } else if (args.length > 1) {
     responses = await routes[cmd](args.slice(1));
   } else {
