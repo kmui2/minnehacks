@@ -7,8 +7,8 @@ Valid options:
 2. News [query] - get the news about a topic
 3. About (subject) - learn about a subject
 4. Fact - get a useful fact about farming
-5. Help - print this help text
+5. Hlp - print this help text
 `;
-  
+
   return [result];
 }
