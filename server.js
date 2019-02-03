@@ -17,6 +17,8 @@ const routes = require('./routes/routes');
 // const kue = require('kue');
 // const jobs = kue.createQueue();
 
+const db = require('db/');
+
 require('dotenv').config();
 
 const ERR_MSG = "No command found, please enter a new one";
@@ -31,16 +33,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post('/sms', async (req, res) => {
   const twiml = new MessagingResponse();
-  const args = req.body.Body.split(' ');
-  console.log(args);
-  const cmd = args[0] ? args[0].toLowerCase() : null;
+  const args = req.body.Body.split();
+  const cmd = args[0].lower() ? args[0] : null;
   let responses = [ERR_MSG];
 
-  console.log(cmd);
-
   if (!cmd || !(cmd in routes)) {
-    // pass;
-    /*} else if(cmd=="news") {
+    pass;
+  } else if(cmd=="news") {
       let country;
       if("FromCountry" in req) {
         country=req.FromCountry;
@@ -53,15 +52,14 @@ app.post('/sms', async (req, res) => {
       } else if(args.length>1) {
         city = args.split(1).join(' ');
       }
-      //TODO: handle case where the user doesn't pass any arguments and
+      //TODO: handle case where the user doesn't pass any arguments and 
       //  twilio was unable to guess the sender's location.
       responses = await routes['weather'](city);
-      */
-
+      
   } else if (args.length > 1) {
-    responses = await routes[cmd](req, args.slice(1));
+    responses = await routes[cmd](args.slice(1));
   } else {
-    responses = await routes[cmd](req);
+    responses = await routes[cmd]();
   }
 
   for (let i = 0; i < responses.length; i++) {
