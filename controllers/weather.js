@@ -1,9 +1,12 @@
 const OpenWeatherMapHelper = require("openweathermap-node");
 
 const config = require('../config.json');
+const weatherHelpers = require('../helpers/weatherHelpers');
 const request = require('request');
 
-module.exports = async function getWeather(cityName) {
+
+
+module.exports = async function (cityName) => {
   return new Promise((resolve, reject) => {
 
     const helper = new OpenWeatherMapHelper(
@@ -19,7 +22,7 @@ module.exports = async function getWeather(cityName) {
       } else {
         let result = [];
         for(let i=0;i<3;i++) {
-          data = {
+          const data = {
             date = forecast.list[i].dt,
             temp_l = forecast.list[i].temp.min,
             temp_h = forecast.list[i].temp.max,
@@ -27,7 +30,7 @@ module.exports = async function getWeather(cityName) {
             wind_speed = forecast.list[i].speed,
             humidity = forecast.list[i].humidity
           }
-          result.push(getWeatherString(data));
+          result.push(weatherHelpers.getWeatherString(data));
         }
         resolve(result);
       }
