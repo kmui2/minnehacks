@@ -1,0 +1,40 @@
+{
+  "name": "my-new-project",
+  "main": "node_modules/expo/AppEntry.js",
+  "private": true,
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "node_modules/.bin/jest",
+    "test:coverage": "jest --coverage --maxWorkers=2 --coverageReporters=lcov --verbose",
+    "coverage": "jest --coverage --coverageReporters=html"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "express-ws": "^4.0.0",
+    "ip": "^1.1.5",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.1",
+    "newman-reporter-teamcity": "^0.1.11",
+    "nodemailer": "^4.7.0",
+    "nodemon": "^1.18.7",
+    "qs": "^6.5.2",
+    "sql-template-strings": "^2.2.2",
+    "sqlite": "^3.0.0",
+    "sqlite3": "^4.0.4"
+  },
+  "devDependencies": {
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.26.2",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "jest": "^23.6.0",
+    "newman": "^4.2.2",
+    "newman-reporter-teamcity": "^0.1.11",
+    "uuid": "^3.3.2"
+  }
+}

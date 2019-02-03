@@ -1,0 +1,11 @@
+{
+    "first_name": "mike", 
+    "last_name": "john",
+    "email_address": "mike@wisc.edu", 
+    "biography": "hi",
+    "zipcode": "57585", 
+    "date_of_birth": "2/24/1996",
+    "skills": "JAVA",
+    "profession": "Full Stack Developer",
+    "hobbies": "testiing hobbies"
+}

@@ -1,0 +1,9 @@
+node_modules/**/*
+.expo/**/*
+package-lock.json
+coverage
+.vscode
+uploads
+.DS_store
+config/momo.js
+logs

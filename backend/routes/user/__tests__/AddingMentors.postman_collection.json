@@ -1,0 +1,298 @@
+{
+	"info": {
+		"_postman_id": "8521f701-aae5-4e74-860e-0ced5e6760cb",
+		"name": "Adding Mentors",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Delete Table",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "33d23260-1a29-47a3-b1ba-153c80bdbc66",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body({\"success\":true,\"rows\":\"delete all tables\"});",
+							"});",
+							"pm.test(\"success\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['success']).to.eql(true);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"skill\": \"a\",\r\n    \"users\": \"1\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8000/user/tables",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"tables"
+					]
+				},
+				"description": "delete table\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Table",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "33d23260-1a29-47a3-b1ba-153c80bdbc66",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body({\"success\":true,\"rows\":\"all tables created\"});",
+							"});",
+							"pm.test(\"success\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['success']).to.eql(true);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"skill\": \"a\",\r\n    \"users\": \"1\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8000/user/tables",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"tables"
+					]
+				},
+				"description": "post tables"
+			},
+			"response": []
+		},
+		{
+			"name": "Check number of mentor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00cc06a0-eac5-4cf3-95d0-1b7f1afc5cfa",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"success\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['success']).to.eql(true);",
+							"});",
+							"pm.test(\"have 0 mentor inside\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['rows'].length).to.eql(0);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8000/user/mentors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"mentors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post 1 mentor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ac3315d6-40de-4808-bb7e-2e39d79366d0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"success\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['success']).to.eql(true);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"first_name\": \"mayank\", \r\n    \"last_name\": \"katwal\",\r\n    \"email_address\": \"katwal@wisc.edu\", \r\n    \"biography\": \"hi\",\r\n    \"zipcode\": \"57585\", \r\n    \"date_of_birth\": \"12/24/1996\",\r\n    \"profession\": \"Software Engineering\", \r\n    \"skills\": \"JAVA\",\r\n    \"hobbies\": \"hi\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8000/user/mentor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"mentor"
+					]
+				},
+				"description": "post mentor"
+			},
+			"response": []
+		},
+		{
+			"name": "Check number of mentor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00cc06a0-eac5-4cf3-95d0-1b7f1afc5cfa",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"success\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['success']).to.eql(true);",
+							"});",
+							"pm.test(\"have 1 mentor inside\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData['rows'].length).to.eql(1);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8000/user/mentors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"mentors"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "76214f15-e8ea-4f4a-8cb9-2e57712a008a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "eb730cb8-1798-4f2e-aa42-4eee36a0e819",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
