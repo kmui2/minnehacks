@@ -14,13 +14,15 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const config = require('./config/database');
 const routes = require('./routes/routes');
 
-const kue = require('kue');
-const jobs = kue.createQueue();
+// const kue = require('kue');
+// const jobs = kue.createQueue();
+
+const db = require('db/');
 
 require('dotenv').config();
 
 const ERR_MSG = "No command found, please enter a new one";
-const PORT = process.env.PORT;
+const PORT = 8000;
 
 //-------------------------Express JS configs-----------------------------//
 app.use(logger('dev')); //debugs logs in terminal
@@ -29,7 +31,7 @@ app.use(logger('dev')); //debugs logs in terminal
 // app.use(bodyParser.json()); //parses json and sets to body
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.post('/', async (req, res) => {
+app.post('/sms', async (req, res) => {
   const twiml = new MessagingResponse();
   const args = req.body.Body.split();
   const cmd = args[0].lower() ? args[0] : null;
@@ -44,6 +46,7 @@ app.post('/', async (req, res) => {
   }
 
   for (let i = 0; i < responses.length; i++) {
+    console.log(responses[i]);
     twiml.message(responses[i]);
   }
 
