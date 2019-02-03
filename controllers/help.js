@@ -1,7 +1,7 @@
 const routes = require("../routes/routes.js");
 const routeDesc = require("../routes/routeDescriptions.js");
 
-module.exports = async () => {
+module.exports = async (req) => {
     let result = "Valid options:\n";
     let optionNumber = 1;
     for(route in routes) {

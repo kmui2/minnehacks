@@ -18,6 +18,8 @@ const help = require('./helpers/help');
 // const kue = require('kue');
 // const jobs = kue.createQueue();
 
+const db = require('db/');
+
 require('dotenv').config();
 
 const HELP_MSG = routes.default.do();
@@ -37,11 +39,9 @@ app.post('/sms', async (req, res) => {
   const cmd = args[0] ? args[0].toLowerCase() : null;
   let responses = HELP_MSG;
 
-  console.log(cmd);
-
   if (!cmd || !(cmd in routes)) {
-    // pass;
-    /*} else if(cmd=="news") {
+    pass;
+  } else if(cmd=="news") {
       let country;
       if("FromCountry" in req) {
         country=req.FromCountry;
@@ -57,7 +57,6 @@ app.post('/sms', async (req, res) => {
       //TODO: handle case where the user doesn't pass any arguments and
       //  twilio was unable to guess the sender's location.
       responses = await routes['weather'](city);
-      */
 
   } else if (args.length >= 1) {
     responses = await routes[cmd].do(req, args.slice(1));
