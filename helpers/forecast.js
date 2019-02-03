@@ -16,7 +16,7 @@ async function getWeather(cityName) {
         );
 
         //TODO: fix this function call
-        getSixteenDayForecast(cityName, (err, forecast) => {
+        helper.getSixteenDayForecast(cityName, (err, forecast) => {
             if(err) {
                 reject(err);
             } else {
