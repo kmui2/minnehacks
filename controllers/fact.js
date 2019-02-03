@@ -1,6 +1,6 @@
 const factsdb = require('../db/facts.js');
 
-default async () => {
+module.exports = async () => {
   const fact = await factsdb.getRandomFact();
   return fact;
 }

@@ -12,7 +12,7 @@ const server = http.createServer(app); //creates an HTTP server instance
 
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const config = require('./config/database');
-const routes = require('./routes/routes').default;
+const routes = require('./routes/routes');
 
 const kue = require('kue');
 const jobs = kue.createQueue();
@@ -35,14 +35,15 @@ app.post('/', async (req, res) => {
   const cmd = args[0].lower() ? args[0] : null;
   let responses = [ERR_MSG];
 
-  if (!cmd !! !(cmd in routes))
+  if (!cmd || !(cmd in routes)) {
     pass;
-  else if (args.length > 1)
-    responses = (await routes[cmd])(args.slice(1));
-  else
-    responses = (await routes)[cmd]();
+  } else if (args.length > 1) {
+    responses = await routes[cmd](args.slice(1));
+  } else {
+    responses = await routes[cmd]();
+  }
 
-  for (int i = 0; i < responses.length; i++) {
+  for (let i = 0; i < responses.length; i++) {
     twiml.message(responses[i]);
   }
 
@@ -51,5 +52,5 @@ app.post('/', async (req, res) => {
 });
 
 http.createServer(app).listen(PORT, () => {
-  console.log(`Express server listening on port $(PORT)`);
+  console.log(`Express server listening on port ${PORT}`);
 });

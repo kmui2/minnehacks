@@ -1,5 +1,3 @@
-const weather = () => {
+module.exports = async () => {
   return;
 }
-
-export default weather
