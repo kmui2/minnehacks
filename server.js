@@ -20,7 +20,7 @@ const jobs = kue.createQueue();
 require('dotenv').config();
 
 const ERR_MSG = "No command found, please enter a new one";
-const PORT = 8000;
+const PORT = process.env.PORT;
 
 //-------------------------Express JS configs-----------------------------//
 app.use(logger('dev')); //debugs logs in terminal
