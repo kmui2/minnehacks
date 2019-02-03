@@ -13,15 +13,14 @@ const server = http.createServer(app); //creates an HTTP server instance
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const config = require('./config/database');
 const routes = require('./routes/routes');
+const help = require('./helpers/help');
 
 // const kue = require('kue');
 // const jobs = kue.createQueue();
 
-const db = require('db/');
-
 require('dotenv').config();
 
-const ERR_MSG = "No command found, please enter a new one";
+const HELP_MSG = routes.default.do();
 const PORT = 8000;
 
 //-------------------------Express JS configs-----------------------------//
@@ -33,13 +32,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post('/sms', async (req, res) => {
   const twiml = new MessagingResponse();
-  const args = req.body.Body.split();
-  const cmd = args[0].lower() ? args[0] : null;
-  let responses = [ERR_MSG];
+  const args = req.body.Body.split(' ');
+  console.log(args);
+  console.log(HELP_MSG);
+  const cmd = args[0] ? args[0].toLowerCase() : null;
+  let responses = HELP_MSG;
 
-  if (!cmd || !(cmd in routes)) {
-    pass;
-  } else if(cmd=="news") {
+  if (cmd && (cmd in routes)) {
+    // pass;
+    /*} else if(cmd=="news") {
       let country;
       if("FromCountry" in req) {
         country=req.FromCountry;
@@ -52,14 +53,16 @@ app.post('/sms', async (req, res) => {
       } else if(args.length>1) {
         city = args.split(1).join(' ');
       }
-      //TODO: handle case where the user doesn't pass any arguments and 
+      //TODO: handle case where the user doesn't pass any arguments and
       //  twilio was unable to guess the sender's location.
       responses = await routes['weather'](city);
 
-  } else if (args.length >= 1) {
-    responses = await routes[cmd](req, args.slice(1));
-  } else {
-    responses = await routes[cmd]();
+  }*/
+    if (args.length >= 1) {
+      responses = await routes[cmd].do(req, args.slice(1));
+    } else {
+      responses = await routes[cmd].do(req);
+    }
   }
 
   for (let i = 0; i < responses.length; i++) {
