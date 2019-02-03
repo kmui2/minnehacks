@@ -29,7 +29,7 @@ module.exports = async (req, args) => {
         resolve("Could not get weather by city name")
       } else {
         let result = [];
-        for(let i=0;i<16;i+=8) {
+        for(let i=0;i<24;i+=8) {
           const date = moment.unix(forecast.list[i].dt).format("MM/DD/YYYY");
           const data = {
             date,
