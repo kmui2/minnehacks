@@ -4,28 +4,31 @@ const Console = require('console');
 
 module.exports = async (req, qry) => {
     return new Promise((resolve, reject) => {
-        let cntry='NG';
+        let cntry='US';
+        /*
         if("FromCountry" in req) {
             cntry=req.FromCountry;
         }
+        */
         let query = qry.join(' ');
         if(query=="") {
-            query="business";
+          query="business";
         }
         newsapi.v2.topHeadlines({
             q: query,
             country: cntry,
             language: 'en',
         }).then((response) => {
-            let result = "Top " + cntry + " headlines about " + query + ".\n  Powered by newsapi.org.\n";
+            let result = ["Top " + cntry + " headlines about " + query + ".\n  Powered by newsapi.org."];
             for(let i=0;i<response.articles.length && i<3; i++) {
-                let article = response.articles[i];
-                result+=(i+1)+". "+article.title+" - "+article.source.name+"\n";
-                result+="   "+article.description+" By: "+article.author+"\n";
+              let news = ""
+              let article = response.articles[i];
+              news+=(i+1)+". "+article.title+" - "+article.source.name+"\n";
+              news+="   "+article.description+" By: "+article.author+"\n";
+              result.push(news);
             }
             Console.log(result);
             resolve(result);
         })
     });
-        
 }

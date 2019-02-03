@@ -8,7 +8,7 @@ module.exports = {
     description: "Get a random but useful agriculture fact."
   },
   default: {
-    do: require("../helpers/help"),
+    do: require("../controllers/help"),
     description: "help text"
   },
   news: {

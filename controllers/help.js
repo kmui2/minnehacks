@@ -1,11 +1,13 @@
-const routes = require("../routes/routes.js");
-const routeDesc = require("../routes/routeDescriptions.js");
+const routes = require("../routes/routes");
 
-module.exports = async (req) => {
-    let result = "Valid options:\n";
-    let optionNumber = 1;
-    for(route in routes) {
-        result += optionNumber.toString() + ". \"" + route.toString() + "\" - " + routeDesc(route) + "\n";
-    }
-    return result;
+module.exports = (req) => {
+  let result = "Valid options:\n";
+  let optionNumber = 1;
+  console.log(routes)
+  console.log(Object.keys(routes));
+  for(route in Object.keys(routes)) {
+    result += optionNumber.toString() + ". \"" + route + "\" - " + route.description + "\n";
+    optionNumber++;
+  }
+  return [result];
 }

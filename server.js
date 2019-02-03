@@ -18,8 +18,6 @@ const help = require('./helpers/help');
 // const kue = require('kue');
 // const jobs = kue.createQueue();
 
-const db = require('db/');
-
 require('dotenv').config();
 
 const HELP_MSG = routes.default.do();
@@ -36,10 +34,11 @@ app.post('/sms', async (req, res) => {
   const twiml = new MessagingResponse();
   const args = req.body.Body.split(' ');
   console.log(args);
+  console.log(HELP_MSG);
   const cmd = args[0] ? args[0].toLowerCase() : null;
   let responses = HELP_MSG;
 
-  if (!cmd || !(cmd in routes)) {
+  if (cmd && (cmd in routes)) {
     // pass;
     /*} else if(cmd=="news") {
       let country;
@@ -59,10 +58,11 @@ app.post('/sms', async (req, res) => {
       responses = await routes['weather'](city);
 
   }*/
-  } else if (args.length >= 1) {
-    responses = await routes[cmd].do(req, args.slice(1));
-  } else {
-    responses = await routes[cmd].do(req);
+    if (args.length >= 1) {
+      responses = await routes[cmd].do(req, args.slice(1));
+    } else {
+      responses = await routes[cmd].do(req);
+    }
   }
 
   for (let i = 0; i < responses.length; i++) {

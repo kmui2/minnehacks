@@ -16,10 +16,13 @@ module.exports = async (req, args) => {
       }
     );
 
+    /*
     let cityName;
     if("FromCity" in req) {
       cityName=req.FromCity;
     }
+    */
+    const cityName = args[0];
 
     helper.getThreeHourForecastByCityName(cityName, (err, forecast) => {
       if(err) {
@@ -44,5 +47,3 @@ module.exports = async (req, args) => {
     });
   });
 }
-
-module.exports({FromCity: "Menomonie"}, []);
