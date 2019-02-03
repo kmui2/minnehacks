@@ -12,14 +12,14 @@ module.exports = async (req, qry) => {
         }
         */
         let query = qry.join(' ');
-        if(query=="") {
-          query="business";
-        }
-        newsapi.v2.topHeadlines({
-            q: query,
+        let param = {
             country: cntry,
-            language: 'en',
-        }).then((response) => {
+            language: 'en'
+        }
+        if(query!="") {
+            param.p=query;
+        }
+        newsapi.v2.topHeadlines(param).then((response) => {
             let result = ["Top " + cntry + " headlines about " + query + ".\n  Powered by newsapi.org."];
             for(let i=0;i<response.articles.length && i<3; i++) {
               let news = ""
@@ -33,3 +33,5 @@ module.exports = async (req, qry) => {
         })
     });
 }
+
+module.exports({}, []);
