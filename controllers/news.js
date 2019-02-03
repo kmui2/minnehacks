@@ -1,5 +1,6 @@
 const NewsAPI = require('newsapi');
-const newsapi = new NewsAPI('851c5fb9fbab4a04ab9daed72a9311f9');
+const config = require('../config/config.json');
+const newsapi = new NewsAPI(config.news_key);
 const Console = require('console');
 
 module.exports = async (req, qry) => {

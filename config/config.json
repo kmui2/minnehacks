@@ -1,5 +1,6 @@
 {
   "weather_appid": "f0c1197bbb44ca220048cf9cd29abf98",
   "weather_units": "metric",
-  "smmry_apikey": "0909C406D6"
+  "smmry_apikey": "0909C406D6",
+	"news_key": "851c5fb9fbab4a04ab9daed72a9311f9"
 }
