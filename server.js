@@ -14,7 +14,10 @@ require('express-ws')(app);
 
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const config = require('./config/database');
+const routes = require('./routes/routes');
 require('dotenv').config()
+
+const ERR_MSG = "No command found, please enter a new one"
 
 //-------------------------Express JS configs-----------------------------//
 app.use(logger('dev')); //debugs logs in terminal
@@ -25,21 +28,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post('/', (req, res) => {
   const twiml = new MessagingResponse();
+  const args = req.body.Body.split();
+  const cmd = args[0].lower() ? args[0] : null;
 
-  if (req.body.Body == 'hello') {
-    twiml.message('Hi!');
-  } else if (req.body.Body == 'bye') {
-    twiml.message('Goodbye');
+  if (cmd && cmd in routes) {
+    if (args.length > 1)
+      routes[cmd](args.slice(1));
+    else
+      routes[cmd]();
   } else {
-    twiml.message(
-      'No Body param match, Twilio sends this in the request to your server.'
-    );
+    twiml.message(ERR_MSG);
   }
 
   res.writeHead(200, { 'Content-Type': 'text/xml' });
   res.end(twiml.toString());
 });
 
-http.createServer(app).listen(1337, () => {
-  console.log('Express server listening on port 1337');
+http.createServer(app).listen(8000, () => {
+  console.log('Express server listening on port 8000');
 });
