@@ -30,6 +30,7 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "deployment" ]; then
               ssh-keyscan 206.189.181.215 >> ~/.ssh/known_hosts
+              npm i -g pm2
               npm run deploy
             fi
 workflows:
