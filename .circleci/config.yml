@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - checkout
-      
+
       - save_cache:
           paths:
             - node_modules
@@ -29,7 +29,7 @@ jobs:
           name: Deploy server to droplet
           command: |
             if [ "${CIRCLE_BRANCH}" == "deployment" ]; then
-              ssh-keyscan ${DEPLOY_HOST} >> ~/.ssh/known_hosts
+              ssh-keyscan 206.189.181.215 >> ~/.ssh/known_hosts
               npm run deploy
             fi
 workflows:
