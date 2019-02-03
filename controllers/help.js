@@ -1,13 +1,14 @@
 const routes = require("../routes/routes");
 
 module.exports = (req) => {
-  let result = "Valid options:\n";
-  let optionNumber = 1;
-  console.log(routes)
-  console.log(Object.keys(routes));
-  for(route in Object.keys(routes)) {
-    result += optionNumber.toString() + ". \"" + route + "\" - " + route.description + "\n";
-    optionNumber++;
-  }
+  let result = `
+Valid options:
+1. Weather (city) - get the forecast for a city
+2. News [query] - get the news about a topic
+3. About (subject) - learn about a subject
+4. Fact - get a useful fact about farming
+5. Help - print this help text
+`;
+  
   return [result];
 }
