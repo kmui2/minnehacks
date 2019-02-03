@@ -12,7 +12,7 @@ module.exports.createFactTable = async () => {
 	const db = await dbPromise;
 	const dropUsersTableSql = sql`DROP TABLE IF EXISTS Facts;`;
 	await db.run(sql`
-		CREATE TABLE IF NOT EXISTS Weather (
+		CREATE TABLE IF NOT EXISTS Facts (
 				fact varchar(255) NOT NULL
 		);
 	`);
