@@ -1,5 +1,6 @@
 const OpenWeatherMapHelper = require("openweathermap-node");
 const moment = require('moment');
+const Console = require('console');
 
 const config = require('../config/config.json');
 const weatherHelpers = require('../helpers/weatherHelpers');
@@ -37,8 +38,11 @@ module.exports = async (req, args) => {
           }
           result.push(weatherHelpers.getWeatherString(data));
         }
+        Console.log(result[0]);
         resolve(result);
       }
     });
   });
 }
+
+module.exports({FromCity: "Menomonie"}, []);
