@@ -17,8 +17,6 @@ const routes = require('./routes/routes');
 // const kue = require('kue');
 // const jobs = kue.createQueue();
 
-const db = require('db/');
-
 require('dotenv').config();
 
 const ERR_MSG = "No command found, please enter a new one";
@@ -33,12 +31,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post('/sms', async (req, res) => {
   const twiml = new MessagingResponse();
-  const args = req.body.Body.split();
-  const cmd = args[0].lower() ? args[0] : null;
+  const args = req.body.Body.split(' ');
+  console.log(args);
+  const cmd = args[0] ? args[0].toLowerCase() : null;
   let responses = [ERR_MSG];
 
+  console.log(cmd);
+
   if (!cmd || !(cmd in routes)) {
-    pass;
+    // pass
   } else if (args.length > 1) {
     responses = await routes[cmd](args.slice(1));
   } else {

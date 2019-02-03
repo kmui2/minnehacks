@@ -1,34 +1,34 @@
 const OpenWeatherMapHelper = require("openweathermap-node");
+const moment = require('moment');
 
-const config = require('../config.json');
+const config = require('../config/config.json');
 const weatherHelpers = require('../helpers/weatherHelpers');
 const request = require('request');
 
-
-
-module.exports = async function (cityName) => {
+module.exports = async (cityName) => {
   return new Promise((resolve, reject) => {
 
     const helper = new OpenWeatherMapHelper(
       {
-        config.weather_appid,
-        config.weather_units
+        APPID: config.weather_appid,
+        units: config.weather_units
       }
     );
 
-    helper.getSixteenDayForecastByCityName(cityName, (err, forecast) => {
+    helper.getThreeHourForecastByCityName(cityName, (err, forecast) => {
       if(err) {
         reject(err);
       } else {
         let result = [];
-        for(let i=0;i<3;i++) {
+        for(let i=0;i<8;i+=4) {
+          const date = moment.unix(forecast.list[i].dt).format("MM/DD/YYYY");
           const data = {
-            date = forecast.list[i].dt,
-            temp_l = forecast.list[i].temp.min,
-            temp_h = forecast.list[i].temp.max,
-            description = forecast.list[i].weather.description,
-            wind_speed = forecast.list[i].speed,
-            humidity = forecast.list[i].humidity
+            date,
+            temp_l : forecast.list[i].main.temp_min,
+            temp_h : forecast.list[i].main.temp_max,
+            description : forecast.list[i].weather[0].description,
+            wind_speed : forecast.list[i].wind.speed,
+            humidity : forecast.list[i].main.humidity
           }
           result.push(weatherHelpers.getWeatherString(data));
         }
