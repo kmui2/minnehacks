@@ -58,7 +58,7 @@ app.post('/sms', async (req, res) => {
       responses = await routes['weather'](city);
       */
 
-  } else if (args.length > 1) {
+  } else if (args.length >= 1) {
     responses = await routes[cmd](req, args.slice(1));
   } else {
     responses = await routes[cmd](req);
