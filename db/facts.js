@@ -3,6 +3,7 @@ const sql = require("sql-template-strings");
 
 module.exports.addFact = async (fact) => {
 	const db = await dbPromise;
+	console.log(fact);
 	await db.run(sql`INSERT INTO Facts VALUES (
 		${fact}
 	)`)
