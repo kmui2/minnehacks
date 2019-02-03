@@ -15,9 +15,14 @@ require('express-ws')(app);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const config = require('./config/database');
 const routes = require('./routes/routes');
-require('dotenv').config()
 
-const ERR_MSG = "No command found, please enter a new one"
+const kue = require('kue');
+const jobs = kue.createQueue();
+
+require('dotenv').config();
+
+const ERR_MSG = "No command found, please enter a new one";
+const PORT = 8000;
 
 //-------------------------Express JS configs-----------------------------//
 app.use(logger('dev')); //debugs logs in terminal
@@ -30,20 +35,23 @@ app.post('/', (req, res) => {
   const twiml = new MessagingResponse();
   const args = req.body.Body.split();
   const cmd = args[0].lower() ? args[0] : null;
+  let responses = [ERR_MSG];
 
-  if (cmd && cmd in routes) {
-    if (args.length > 1)
-      routes[cmd](args.slice(1));
-    else
-      routes[cmd]();
-  } else {
-    twiml.message(ERR_MSG);
+  if (!cmd !! !(cmd in routes))
+    pass;
+  else if (args.length > 1)
+    responses = routes[cmd](args.slice(1));
+  else
+    responses = routes[cmd]();
+
+  for (int i = 0; i < responses.length; i++) {
+    twiml.message(responses[i]);
   }
 
   res.writeHead(200, { 'Content-Type': 'text/xml' });
   res.end(twiml.toString());
 });
 
-http.createServer(app).listen(8000, () => {
-  console.log('Express server listening on port 8000');
+http.createServer(app).listen(PORT, () => {
+  console.log(`Express server listening on port $(PORT)`);
 });
