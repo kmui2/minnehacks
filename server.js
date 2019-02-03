@@ -21,7 +21,7 @@ const help = require('./helpers/help');
 require('dotenv').config();
 
 const HELP_MSG = routes.default.do();
-const PORT = 8000;
+const PORT = process.env.PORT;
 
 //-------------------------Express JS configs-----------------------------//
 app.use(logger('dev')); //debugs logs in terminal
