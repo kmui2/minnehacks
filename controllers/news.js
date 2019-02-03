@@ -25,7 +25,7 @@ module.exports = async (req, qry) => {
               let news = ""
               let article = response.articles[i];
               news+=(i+1)+". "+article.title+" - "+article.source.name+"\n";
-              news+="   "+article.description+((artcle.author)?+" By: "+article.author:"")+"\n";
+              news+="   "+article.description+((article.author)?+" By: "+article.author:"")+"\n";
               result.push(news);
             }
             Console.log(result);
