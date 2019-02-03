@@ -4,17 +4,15 @@
 const express = require("express"); //used as routing framework
 const path = require("path"); //Node.js module used for getting path of file
 const logger =  require("morgan"); //used to log in console window all request
-// const cookieParser = require("cookie-parser"); //Parse Cookie header and populate req.cookies
 const bodyParser = require("body-parser"); //allows the use of req.body in POST request
 const http = require('http');
-// const jwt = require('jsonwebtoken');
+
 const app = express(); //creates an instance of express
 const server = http.createServer(app); //creates an HTTP server instance
-require('express-ws')(app);
 
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const config = require('./config/database');
-const routes = require('./routes/routes');
+const routes = require('./routes/routes').default;
 
 const kue = require('kue');
 const jobs = kue.createQueue();
@@ -31,7 +29,7 @@ app.use(logger('dev')); //debugs logs in terminal
 // app.use(bodyParser.json()); //parses json and sets to body
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.post('/', (req, res) => {
+app.post('/', async (req, res) => {
   const twiml = new MessagingResponse();
   const args = req.body.Body.split();
   const cmd = args[0].lower() ? args[0] : null;
@@ -40,9 +38,9 @@ app.post('/', (req, res) => {
   if (!cmd !! !(cmd in routes))
     pass;
   else if (args.length > 1)
-    responses = routes[cmd](args.slice(1));
+    responses = (await routes[cmd])(args.slice(1));
   else
-    responses = routes[cmd]();
+    responses = (await routes)[cmd]();
 
   for (int i = 0; i < responses.length; i++) {
     twiml.message(responses[i]);

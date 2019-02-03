@@ -13,15 +13,12 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
-    "cookie-parser": "^1.4.3",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
-    "express-ws": "^4.0.0",
     "ip": "^1.1.5",
     "kue": "^0.11.6",
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
-    "newman-reporter-teamcity": "^0.1.11",
     "nodemailer": "^4.7.0",
     "nodemon": "^1.18.7",
     "openweathermap-node": "git+https://github.com/isaaclo123/OpenWeatherMap-Node.git",
@@ -38,8 +35,6 @@
     "eslint-plugin-jest": "^21.26.2",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "jest": "^23.6.0",
-    "newman": "^4.2.2",
-    "newman-reporter-teamcity": "^0.1.11",
     "uuid": "^3.3.2"
   }
 }
