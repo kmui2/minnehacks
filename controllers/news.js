@@ -1,14 +1,12 @@
 const NewsAPI = require('newsapi');
 const newsapi = new NewsAPI('851c5fb9fbab4a04ab9daed72a9311f9');
 
-module.exports = async (qry, cntry) => {
-    if(cntry==undefined || cntry=="") {
-        cntry="US";
+module.exports = async (req, qry) => {
+    let country='NG';
+    if("FromCountry" in req) {
+        country=req.FromCountry;
     }
-    let query = "";
-    for(term in qry) {
-        query += term + " ";
-    }
+    let query = qry.join(' ');
     if(query=="") {
         query="agriculture";
     }

@@ -15,7 +15,10 @@ module.exports = async (req, args) => {
       }
     );
 
-    const cityName = args[0];
+    let cityName;
+    if("FromCity" in req) {
+      cityName=req.FromCity;
+    }
 
     helper.getThreeHourForecastByCityName(cityName, (err, forecast) => {
       if(err) {
