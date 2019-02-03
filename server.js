@@ -55,9 +55,9 @@ app.post('/sms', async (req, res) => {
       //TODO: handle case where the user doesn't pass any arguments and 
       //  twilio was unable to guess the sender's location.
       responses = await routes['weather'](city);
-      
-  } else if (args.length > 1) {
-    responses = await routes[cmd](args.slice(1));
+
+  } else if (args.length >= 1) {
+    responses = await routes[cmd](req, args.slice(1));
   } else {
     responses = await routes[cmd]();
   }
