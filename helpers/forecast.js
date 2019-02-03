@@ -7,20 +7,20 @@ const units = "metric";
 
 async function getWeather(cityName) {
     return new Promise((resolve, reject) => {
-        let result = Array();
 
         const helper = new OpenWeatherMapHelper(
             {
                 APPID,
                 units
            }
-        )
+        );
 
         //TODO: fix this function call
         getSixteenDayForecast(cityName, (err, forecast) => {
             if(err) {
-                console.log(err);
+                reject(err);
             } else {
+                let result = [];
                 for(let i=0;i<3;i++) {
                     data = {
                         date = forecast.list[i].dt,
