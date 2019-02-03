@@ -40,8 +40,8 @@ app.post('/sms', async (req, res) => {
   let responses = HELP_MSG;
 
   if (!cmd || !(cmd in routes)) {
-    pass;
-  } else if(cmd=="news") {
+    // pass;
+    /*} else if(cmd=="news") {
       let country;
       if("FromCountry" in req) {
         country=req.FromCountry;
@@ -58,6 +58,7 @@ app.post('/sms', async (req, res) => {
       //  twilio was unable to guess the sender's location.
       responses = await routes['weather'](city);
 
+  }*/
   } else if (args.length >= 1) {
     responses = await routes[cmd].do(req, args.slice(1));
   } else {
