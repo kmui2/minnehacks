@@ -20,7 +20,7 @@ module.exports = async (cityName) => {
         reject(err);
       } else {
         let result = [];
-        for(let i=0;i<8;i+=4) {
+        for(let i=0;i<16;i+=8) {
           const date = moment.unix(forecast.list[i].dt).format("MM/DD/YYYY");
           const data = {
             date,
