@@ -5,7 +5,7 @@ const config = require('../config/config.json');
 const weatherHelpers = require('../helpers/weatherHelpers');
 const request = require('request');
 
-module.exports = async (cityName) => {
+module.exports = async (req, args) => {
   return new Promise((resolve, reject) => {
 
     const helper = new OpenWeatherMapHelper(
@@ -15,9 +15,11 @@ module.exports = async (cityName) => {
       }
     );
 
+    const cityName = args[0];
+
     helper.getThreeHourForecastByCityName(cityName, (err, forecast) => {
       if(err) {
-        reject(err);
+        resolve("Could not get weather by city name")
       } else {
         let result = [];
         for(let i=0;i<16;i+=8) {
