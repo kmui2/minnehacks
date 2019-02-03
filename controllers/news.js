@@ -12,16 +12,16 @@ module.exports = async (qry, cntry) => {
     if(query=="") {
         query="agriculture";
     }
-    newsapi.v2.topHeadlines({
+    const response = await newsapi.v2.topHeadlines({
         q: query,
         country: cntry
-    }).then(response => {
-        let result = "Top " + cntry + " headlines about " + query + ".\n  Powered by newsapi.org.\n";
-        for(let i=0;i<response.articles.length && i<3; i++) {
-            let article = response.articles[i];
-            result+=(i+1)+". "+title+" - "+article.source.name+"\n";
-            result+="   "+article.description+" By: "+article.author+"\n";
-        }
-        return result;
-    })
+    });
+    
+    let result = "Top " + cntry + " headlines about " + query + ".\n  Powered by newsapi.org.\n";
+    for(let i=0;i<response.articles.length && i<3; i++) {
+        let article = response.articles[i];
+        result+=(i+1)+". "+title+" - "+article.source.name+"\n";
+        result+="   "+article.description+" By: "+article.author+"\n";
+    }
+    return result;
 }
