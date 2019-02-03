@@ -36,6 +36,4 @@ async function getWeather(cityName) {
             }
         });
     });
-}
-
-getWeather("menomonie");
+};
