@@ -13,13 +13,14 @@ const server = http.createServer(app); //creates an HTTP server instance
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const config = require('./config/database');
 const routes = require('./routes/routes');
+const help = require('./helpers/help');
 
 // const kue = require('kue');
 // const jobs = kue.createQueue();
 
 require('dotenv').config();
 
-const ERR_MSG = "No command found, please enter a new one";
+const HELP_MSG = routes.default.do();
 const PORT = 8000;
 
 //-------------------------Express JS configs-----------------------------//
@@ -34,7 +35,7 @@ app.post('/sms', async (req, res) => {
   const args = req.body.Body.split(' ');
   console.log(args);
   const cmd = args[0] ? args[0].toLowerCase() : null;
-  let responses = [ERR_MSG];
+  let responses = HELP_MSG;
 
   console.log(cmd);
 
@@ -59,9 +60,9 @@ app.post('/sms', async (req, res) => {
       */
 
   } else if (args.length >= 1) {
-    responses = await routes[cmd](req, args.slice(1));
+    responses = await routes[cmd].do(req, args.slice(1));
   } else {
-    responses = await routes[cmd](req);
+    responses = await routes[cmd].do(req);
   }
 
   for (let i = 0; i < responses.length; i++) {
