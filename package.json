@@ -6,7 +6,9 @@
     "start": "nodemon server.js",
     "test": "node_modules/.bin/jest",
     "test:coverage": "jest --coverage --maxWorkers=2 --coverageReporters=lcov --verbose",
-    "coverage": "jest --coverage --coverageReporters=html"
+    "coverage": "jest --coverage --coverageReporters=html",
+    "deploy": "pm2 deploy ecosystem.config.js development",
+    "deploy:serve": "pm2 kill && pm2 flush && pm2 start ecosystem.config.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
