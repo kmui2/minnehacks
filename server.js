@@ -45,6 +45,17 @@ app.post('/sms', async (req, res) => {
         country=req.FromCountry;
       }
       responses = await routes['news'](args.slice(1), country);
+  } else if(cmd=="weather") {
+      let city;
+      if(args.length==1 && "FromCity" in req) {
+        city = req.FromCity;
+      } else if(args.length>1) {
+        city = args.split(1).join(' ');
+      }
+      //TODO: handle case where the user doesn't pass any arguments and 
+      //  twilio was unable to guess the sender's location.
+      responses = await routes['weather'](city);
+      
   } else if (args.length > 1) {
     responses = await routes[cmd](args.slice(1));
   } else {
