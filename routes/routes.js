@@ -14,5 +14,9 @@ module.exports = {
   news: {
     do: require("../controllers/news"),
     description: "Get top headlines in your area. Specific queries can be appended to this command."
+  },
+  about: {
+    do: require("../controllers/about"),
+    description: "Get information about a topic of your choice"
   }
 }
